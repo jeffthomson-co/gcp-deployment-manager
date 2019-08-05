@@ -47,7 +47,22 @@ def GenerateConfig(context):
                   'name': 'External NAT',
                   'type': 'ONE_TO_ONE_NAT'
               }]
-          }]
+          }],
+          'metadata': {
+              'items': [{
+                  'key': 'startup-script',
+                  'value': ''.join(['#!/bin/bash\n',
+                                    'INSTANCE=$(curl http://metadata.google.',
+                                    'internal/computeMetadata/v1/instance/',
+                                    'hostname -H "Metadata-Flavor: Google")\n',
+                                    'echo "<html><header><title>Hello from ',
+                                    'Deployment Manager!</title></header>',
+                                    '<body><h2>Hello from $INSTANCE</h2><p>',
+                                    'Deployment Manager bids you good day!</p>',
+                                    '</body></html>" > index.html\n',
+                                    'python -m SimpleHTTPServer 80\n'])
+              }]
+          }
       }
   }]
   return {'resources': resources}
