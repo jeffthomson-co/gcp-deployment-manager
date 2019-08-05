@@ -1,0 +1,8 @@
+imports:
+- path: nodejs.py
+
+resources:
+- name: nodejs
+  type: nodejs.py
+  properties:
+    zone: europe-west2-a
